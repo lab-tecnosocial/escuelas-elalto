@@ -1,9 +1,12 @@
 library(shiny)
+library(tidyverse)
 library(leaflet)
 library(RColorBrewer)
 library(scales)
 library(lattice)
 library(dplyr)
 library(readxl)
+library(sf)
 
 cleantable <- read_excel("data/Matriz_Educacion2022_ElALto_24-06-22.xlsx")
+el_alto_margen <- read_file("data/elalto.geojson")
