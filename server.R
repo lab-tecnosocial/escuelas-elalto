@@ -7,8 +7,8 @@ function(input, output, session) {
       setView(lng = -68.105, lat = -16.525, zoom = 11) %>%
       addGeoJSON(el_alto_margen, weight = 2, fill = F) %>%
       addCircles(
-        label = ~`(1) UNIDADES EDUCATIVAS`,
-        popup = ~paste0("<b>", `(1) UNIDADES EDUCATIVAS`, "</b>", "<br>")
+        label = ~unidad_educativa,
+        popup = ~paste0("<b>", unidad_educativa, "</b>", "<br>")
       )
   })
 
