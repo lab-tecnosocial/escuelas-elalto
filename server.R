@@ -2,10 +2,14 @@ function(input, output, session) {
 
   # Map
   output$map <- renderLeaflet({
-    leaflet() %>%
+    leaflet(sf_tabla) %>%
       addProviderTiles("CartoDB.Positron") %>%
       setView(lng = -68.105, lat = -16.525, zoom = 11) %>%
-      addGeoJSON(el_alto_margen, weight = 2, fill = F)
+      addGeoJSON(el_alto_margen, weight = 2, fill = F) %>%
+      addCircles(
+        label = ~`(1) UNIDADES EDUCATIVAS`,
+        popup = ~paste0("<b>", `(1) UNIDADES EDUCATIVAS`, "</b>", "<br>")
+      )
   })
 
 
