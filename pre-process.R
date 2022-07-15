@@ -47,6 +47,13 @@ tabla <- tabla %>%
     TRUE ~ "Mañana"
   ), .after = sala_computacion)
 
+# Unir columnas innecesariamente separadas
+tabla <- tabla %>%
+  unite(`pob_mañana`, pob_tarde, pob_noche, col = "pob", sep = "", remove = F, na.rm = T)
+
+# Duplicar filas para turnos diferentes
+# . . .
+
 # Guardar tabla limpia
 write_csv(tabla, "data/escuelas-ea-clean.csv")
 
