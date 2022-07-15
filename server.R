@@ -8,7 +8,13 @@ function(input, output, session) {
       addGeoJSON(el_alto_margen, weight = 2, fill = F) %>%
       addCircles(
         label = ~unidad_educativa,
-        popup = ~paste0("<b>", unidad_educativa, "</b>", "<br>")
+        popup = ~paste0(
+          "<b>", unidad_educativa, "</b>", "<br>",
+          "Distrito: ", distrito, "<br>",
+          "Turno: ", turno, "<br>",
+          "Nivel educativo: ", nivel_educativo, "<br>",
+          "Estado: ", estado, "<br>"
+          )
       )
   })
 

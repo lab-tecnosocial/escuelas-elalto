@@ -1,11 +1,17 @@
 library(leaflet)
 
 # Choices for drop-downs
-vars <- c(
-  "A" = "a",
-  "B" = "b"
+turno_list <- c(
+  "Mañana" = "Mañana",
+  "Tarde" = "Tarde",
+  "Noche" = "Noche"
 )
 
+estado_list <- c(
+  "Bueno" = "Bueno",
+  "Regular" = "Regular",
+  "Malo" = "Malo"
+)
 
 navbarPage("Escuelas en El Alto", id="nav",
 
@@ -23,12 +29,8 @@ navbarPage("Escuelas en El Alto", id="nav",
 
         h2("Filtros"),
 
-        selectInput("color", "Color", vars),
-        selectInput("size", "Size", vars, selected = "adultpop"),
-        conditionalPanel("input.color == 'superzip' || input.size == 'superzip'",
- 
-          numericInput("threshold", "SuperZIP threshold (top n percentile)", 5)
-        ),
+        selectInput("turno", "Turno", turno_list, selected = "Mañana"),
+        selectInput("estado", "Estado", estado_list, selected = ""),
 
         plotOutput("histCentile", height = 200),
         plotOutput("scatterCollegeIncome", height = 250)
