@@ -32,43 +32,13 @@ navbarPage("Escuelas en El Alto", id="nav",
         selectInput("turno", "Turno", turno_list, selected = "Mañana"),
         selectInput("estado", "Estado", estado_list, selected = "Bueno"),
 
-        plotOutput("histCentile", height = 200),
-        plotOutput("scatterCollegeIncome", height = 250)
+        plotOutput("serviciosPlot", height = 200),
       ),
 
       tags$div(id="cite",
-        'Datos GAMEA'
+        'Datos GAMEA',
+        "Desarrollado por el LabTecnoSocial"
       )
     )
-  ),
-
-  tabPanel("Datos",
-    fluidRow(
-      column(3,
-        selectInput("states", "Var1", c("All var1"=""), multiple=TRUE)
-      ),
-      column(3,
-        conditionalPanel("input.states",
-          selectInput("cities", "Var2", c("All var2"=""), multiple=TRUE)
-        )
-      ),
-      column(3,
-        conditionalPanel("input.states",
-          selectInput("zipcodes", "Var3", c("All var3"=""), multiple=TRUE)
-        )
-      )
-    ),
-    fluidRow(
-      column(1,
-        numericInput("minScore", "Min score", min=0, max=100, value=0)
-      ),
-      column(1,
-        numericInput("maxScore", "Max score", min=0, max=100, value=100)
-      )
-    ),
-    hr(),
-    DT::dataTableOutput("")
-  ),
-
-  conditionalPanel("false", icon("crosshair"))
+  )
 )
