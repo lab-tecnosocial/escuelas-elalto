@@ -1,6 +1,6 @@
 library(leaflet)
 
-# Choices for drop-downs
+# Opciones para listas de seleccion
 turno_list <- c(
   "Mañana" = "Mañana",
   "Tarde" = "Tarde",
@@ -30,7 +30,7 @@ navbarPage("Escuelas en El Alto", id="nav",
         h2("Filtros"),
 
         selectInput("turno", "Turno", turno_list, selected = "Mañana"),
-        selectInput("estado", "Estado", estado_list, selected = ""),
+        selectInput("estado", "Estado", estado_list, selected = "Bueno"),
 
         plotOutput("histCentile", height = 200),
         plotOutput("scatterCollegeIncome", height = 250)

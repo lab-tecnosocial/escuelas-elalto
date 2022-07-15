@@ -2,7 +2,10 @@ function(input, output, session) {
 
   # Map
   output$map <- renderLeaflet({
-    leaflet(sf_tabla) %>%
+    data <- sf_tabla %>%
+      filter(turno == input$turno & estado == input$estado)
+    
+    leaflet(data) %>%
       addProviderTiles("CartoDB.Positron") %>%
       setView(lng = -68.105, lat = -16.525, zoom = 11) %>%
       addGeoJSON(el_alto_margen, weight = 2, fill = F) %>%
