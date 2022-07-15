@@ -29,15 +29,19 @@ navbarPage("Escuelas en El Alto", id="nav",
 
         h2("Filtros"),
 
-        selectInput("turno", "Turno", turno_list, selected = "Mañana"),
-        selectInput("estado", "Estado", estado_list, selected = "Bueno"),
-
+        selectInput("turno", tags$b("Turno"), turno_list, selected = "Mañana"),
+        selectInput("estado", tags$b("Estado"), estado_list, selected = "Regular"),
+        h4("Porcentaje de servicios"),
         plotOutput("serviciosPlot", height = 200),
+        h4("Población"),
+        plotOutput("poblacionPlot", height = 200)
       ),
 
       tags$div(id="cite",
-        'Datos GAMEA',
-        "Desarrollado por el LabTecnoSocial"
+        "Datos GAMEA",
+        " - ",
+        "Desarrollado por el", 
+        a("LabTecnoSocial", href="https://labtecnosocial.org/")
       )
     )
   )

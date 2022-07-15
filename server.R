@@ -1,12 +1,16 @@
 function(input, output, session) {
   datos <- reactive({
+    validate(
+      need(!(input$turno == "Noche" & input$estado == "Bueno"), "No hay coincidencias")
+    )
     sf_tabla %>%
       filter(turno == input$turno & estado == input$estado)
   })
   
   # Mapa
   output$map <- renderLeaflet({
-    leaflet(datos()) %>%
+    leaflet(datos(), options = leafletOptions(
+      attributionControl=FALSE)) %>%
       addProviderTiles("CartoDB.Positron") %>%
       setView(lng = -68.105, lat = -16.525, zoom = 11) %>%
       addGeoJSON(el_alto_margen, weight = 2, fill = F) %>%
@@ -40,4 +44,13 @@ function(input, output, session) {
       theme_minimal()
   })
 
+  output$poblacionPlot <- renderPlot({
+    datos() %>%
+      st_drop_geometry() %>%
+      select(pob) %>%
+      ggplot() +
+      geom_histogram(aes(pob), binwidth = 100, fill = "skyblue") +
+      theme_minimal()
+    
+  })
 }
