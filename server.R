@@ -9,11 +9,17 @@ function(input, output, session) {
   
   # Mapa
   output$map <- renderLeaflet({
-    leaflet(datos(), options = leafletOptions(
+    leaflet(options = leafletOptions(
       attributionControl=FALSE)) %>%
       addProviderTiles("CartoDB.Positron") %>%
       setView(lng = -68.105, lat = -16.525, zoom = 11) %>%
-      addGeoJSON(el_alto_margen, weight = 2, fill = F) %>%
+      addGeoJSON(el_alto_margen, weight = 2, fill = F)
+  })
+
+  # Actualizacion de mapa
+  observe({
+    leafletProxy("map", data = datos()) %>%
+      clearShapes() %>%
       addCircles(
         label = ~unidad_educativa,
         popup = ~paste0(
@@ -23,10 +29,13 @@ function(input, output, session) {
           "Nivel educativo: ", nivel_educativo, "<br>",
           "Población: ", pob, "<br>",
           "Estado: ", estado, "<br>"
-          )
+        )
       )
+      
   })
 
+  
+  
   # Graficos
   output$serviciosPlot <- renderPlot({
     datos() %>%
