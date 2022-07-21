@@ -16,6 +16,6 @@ sf_tabla <- tabla %>%
 sf_tabla <- st_transform(sf_tabla, crs = 4326)
 
 # Cargar capa de area de El Alto
-el_alto_margen <- read_file("data/elalto.geojson")
+el_alto_distritos <- read_file("data/elalto_distritos.geojson")
 
 

@@ -13,7 +13,7 @@ function(input, output, session) {
       attributionControl=FALSE)) %>%
       addProviderTiles("CartoDB.Positron") %>%
       setView(lng = -68.105, lat = -16.525, zoom = 11) %>%
-      addGeoJSON(el_alto_margen, weight = 2, fill = F)
+      addGeoJSON(el_alto_distritos, weight = 2, fill = F)
   })
 
   # Actualizacion de mapa
