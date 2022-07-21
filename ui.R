@@ -45,8 +45,23 @@ navbarPage("Escuelas en El Alto", id="nav",
         "Datos GAMEA",
         " - ",
         "Desarrollado por el", 
-        a("LabTecnoSocial", href="https://labtecnosocial.org/")
+        a("Lab TecnoSocial", href="https://labtecnosocial.org/")
       )
     )
+  ),
+  tabPanel("Datos",
+           fluidRow(
+             column(3,
+                    selectInput("distritoTab", "Distrito", unique(sf_tabla$distrito), selected = "D-1")
+             ),
+             column(3,
+                    selectInput("nivelTab", "Nivel educativo", unique(sf_tabla$nivel_educativo), selected = "I-P-S")
+             ),
+             column(3,
+                    selectInput("estadoTab", "Estado", c("Bueno", "Regular", "Malo"), selected = "Regular")
+             )
+           ),
+           hr(),
+           DT::dataTableOutput("tablaOutput")
   )
 )

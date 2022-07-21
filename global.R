@@ -4,6 +4,7 @@ library(leaflet)
 library(RColorBrewer)
 library(scales)
 library(sf)
+library(DT)
 
 
 tabla <- read_csv("data/escuelas-ea-clean.csv")

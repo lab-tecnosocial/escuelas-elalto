@@ -18,7 +18,7 @@ function(input, output, session) {
       attributionControl=FALSE)) %>%
       addProviderTiles("CartoDB.Positron") %>%
       setView(lng = -68.105, lat = -16.525, zoom = 11) %>%
-      addGeoJSON(el_alto_distritos, weight = 2, fill = F)
+      addGeoJSON(el_alto_distritos, weight = 1, fill = F, color = "black")
   })
 
   # Actualizacion de mapa
@@ -77,5 +77,17 @@ function(input, output, session) {
     datos() %>%
       pull(pob) %>%
       sum(na.rm = T)
+  })
+  
+  # Tabla de datos
+  output$tablaOutput <- DT::renderDataTable({
+    tabla_filtered <- sf_tabla %>%
+      st_drop_geometry() %>%
+      select(-(nombre_mañana:nombre_noche), -(`pob_mañana`:pob_noche)) %>%
+      filter(distrito == input$distritoTab & nivel_educativo == input$nivelTab & estado == input$estadoTab) %>%
+      relocate(turno:pob, .after = nivel_educativo)
+    DT::datatable(tabla_filtered, options = list(
+      language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+    ))
   })
 }
