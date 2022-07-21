@@ -18,4 +18,11 @@ sf_tabla <- st_transform(sf_tabla, crs = 4326)
 # Cargar capa de area de El Alto
 el_alto_distritos <- read_file("data/elalto_distritos.geojson")
 
+# Mis funciones
 
+count_prop <- function(df, col) {
+  df %>%
+    group_by({{col}}) %>%
+    tally %>% 
+    mutate(n_prop = round((n / sum(n) * 100), 1))
+}

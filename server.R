@@ -3,8 +3,13 @@ function(input, output, session) {
     validate(
       need(!(input$turno == "Noche" & input$estado == "Bueno"), "No hay coincidencias")
     )
+    if(input$estado == "Todos"){
+      sf_tabla %>%
+        filter(turno == input$turno)
+    } else {
     sf_tabla %>%
       filter(turno == input$turno & estado == input$estado)
+    }
   })
   
   # Mapa
@@ -37,6 +42,21 @@ function(input, output, session) {
   
   
   # Graficos
+  output$estadoPlot <- renderPlot({
+    datos() %>%
+      st_drop_geometry() %>%
+      filter(!is.na(estado)) %>%
+      count_prop(estado) %>%
+      mutate(estado = fct_relevel(estado, "Bueno", "Regular")) %>%
+      ggplot(aes(x = "", y = n_prop, fill = estado)) +
+      geom_col() +
+      geom_text(aes(label = paste0(n_prop, "%")), position = position_stack(vjust = 0.5), color = "white", size = 3) +
+      coord_polar(theta = "y") +
+      scale_fill_brewer() +
+      theme_void()
+    
+  })
+  
   output$serviciosPlot <- renderPlot({
     datos() %>%
       st_drop_geometry() %>%
@@ -53,13 +73,9 @@ function(input, output, session) {
       theme_minimal()
   })
 
-  output$poblacionPlot <- renderPlot({
+  output$poblacionPlot <- renderText({
     datos() %>%
-      st_drop_geometry() %>%
-      select(pob) %>%
-      ggplot() +
-      geom_histogram(aes(pob), binwidth = 100, fill = "skyblue") +
-      theme_minimal()
-    
+      pull(pob) %>%
+      sum(na.rm = T)
   })
 }
