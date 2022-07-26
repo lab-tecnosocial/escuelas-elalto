@@ -69,7 +69,7 @@ function(input, output, session) {
       scale_x_discrete(guide = guide_axis(angle = 45)) +
       scale_y_continuous(labels = label_percent()) +
       scale_fill_brewer() +
-      labs(x = NULL, y = NULL) +
+      labs(x = NULL, y = NULL, fill = NULL) +
       theme_minimal()
   })
 
