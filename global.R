@@ -6,6 +6,27 @@ library(scales)
 library(sf)
 library(DT)
 
+# Mapa base de CARTO. Desde agosto de 2026 CARTO exige API key en sus teselas
+# raster: sin ella responde HTTP 200 con un PNG de marca de agua "API KEY
+# REQUIRED", sin ningún error visible. `addProviderTiles()` no admite pasar
+# parámetros a la URL, así que el mapa base se arma con `addTiles()` sobre la
+# plantilla completa. La key es la gratuita del Lab y no es secreta (va en cada
+# petición del navegador).
+carto_tiles <- function(estilo) {
+  paste0(
+    "https://{s}.basemaps.cartocdn.com/", estilo,
+    "/{z}/{x}/{y}{r}.png?key=cb1_2i09_1_c1733caff4f6b0fa830d7eeb"
+  )
+}
+
+# La atribución la ponía `addProviderTiles()` por su cuenta; al pasar a
+# `addTiles()` hay que declararla explícitamente. El tier gratuito de CARTO
+# exige mantenerla visible.
+CARTO_ATRIBUCION <- paste0(
+  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> ',
+  '&copy; <a href="https://carto.com/attributions">CARTO</a>'
+)
+
 
 tabla <- read_csv("data/escuelas-ea-clean.csv")
 

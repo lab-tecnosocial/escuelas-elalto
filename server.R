@@ -14,9 +14,11 @@ function(input, output, session) {
   
   # Mapa
   output$map <- renderLeaflet({
-    leaflet(options = leafletOptions(
-      attributionControl=FALSE)) %>%
-      addProviderTiles("CartoDB.Positron") %>%
+    # El control de atribución queda activo: el tier gratuito de CARTO exige
+    # mostrar la atribución de CARTO y OpenStreetMap.
+    leaflet() %>%
+      addTiles(urlTemplate = carto_tiles("light_all"),
+               attribution = CARTO_ATRIBUCION) %>%
       setView(lng = -68.105, lat = -16.525, zoom = 11) %>%
       addGeoJSON(el_alto_distritos, weight = 1, fill = F, color = "black")
   })
